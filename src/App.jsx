@@ -16,17 +16,20 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
-  const [disable, setDisable] = useState(false)
+  const [disable, setDisable] = useState(false);
+  const [memorizing, setMemorizing] = useState(null);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
-    setChoiceOne(null)
-    setChoiceTwo(null)
+    setMemorizing(true);
+    setChoiceOne(null);
+    setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(0);
+    setTimeout(() => setMemorizing(false), 3000)
   };
 
   const handleChoice = (card) => {
@@ -37,12 +40,12 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns((prevTurn) => prevTurn + 1);
-    setDisable(false)
+    setDisable(false);
   };
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
-      setDisable(true)
+      setDisable(true);
       if (choiceOne.src === choiceTwo.src) {
         setCards((prevCards) =>
           prevCards.map((card) => {
@@ -61,8 +64,8 @@ function App() {
   }, [choiceOne, choiceTwo]);
 
   useEffect(() => {
-    shuffleCards()
-  }, [])
+    shuffleCards();
+  }, []);
 
   return (
     <div className="App">
@@ -75,7 +78,12 @@ function App() {
             key={card.id}
             card={card}
             handleChoice={handleChoice}
-            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            flipped={
+              card === choiceOne ||
+              card === choiceTwo ||
+              card.matched ||
+              memorizing
+            }
             disabled={disable}
           />
         ))}
