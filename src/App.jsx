@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Confetti from "react-confetti";
 import "./App.css";
 import Card from "./components/Card";
 
@@ -13,11 +14,11 @@ const cardImages = [
 
 function App() {
   const [cards, setCards] = useState([]);
-  const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disable, setDisable] = useState(false);
   const [memorizing, setMemorizing] = useState(null);
+  const [confetti, setConfetti] = useState(false);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -28,8 +29,7 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setCards(shuffledCards);
-    setTurns(0);
-    setTimeout(() => setMemorizing(false), 3000)
+    setTimeout(() => setMemorizing(false), 3000);
   };
 
   const handleChoice = (card) => {
@@ -39,8 +39,14 @@ function App() {
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
-    setTurns((prevTurn) => prevTurn + 1);
     setDisable(false);
+  };
+
+  const gameWon = () => {
+    const allMatch = cards.filter((card) => card.matched === true);
+
+    if (allMatch.length === cards.length) {
+    }
   };
 
   useEffect(() => {
@@ -61,16 +67,19 @@ function App() {
       }
       setTimeout(() => resetTurn(), 1000);
     }
-  }, [choiceOne, choiceTwo]);
 
-  useEffect(() => {
-    shuffleCards();
-  }, []);
+    gameWon();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choiceOne, choiceTwo]);
 
   return (
     <div className="App">
       <h1>Magic Match</h1>
       <button onClick={shuffleCards}>New Game</button>
+
+      {confetti && (
+        <Confetti width={window.width} height={window.innerHeight} />
+      )}
 
       <div className="card-grid">
         {cards.map((card) => (
@@ -87,7 +96,6 @@ function App() {
             disabled={disable}
           />
         ))}
-        <p>Turns: {turns}</p>
       </div>
     </div>
   );
