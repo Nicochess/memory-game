@@ -28,6 +28,7 @@ function App() {
     setMemorizing(true);
     setChoiceOne(null);
     setChoiceTwo(null);
+    setConfetti(false)
     setCards(shuffledCards);
     setTimeout(() => setMemorizing(false), 3000);
   };
@@ -44,8 +45,10 @@ function App() {
 
   const gameWon = () => {
     const allMatch = cards.filter((card) => card.matched === true);
+    console.log(allMatch.length, cards.length)
 
-    if (allMatch.length === cards.length) {
+    if (cards.length > 0 && allMatch.length === cards.length) {
+      setConfetti(true);
     }
   };
 
@@ -67,7 +70,6 @@ function App() {
       }
       setTimeout(() => resetTurn(), 1000);
     }
-
     gameWon();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceOne, choiceTwo]);
