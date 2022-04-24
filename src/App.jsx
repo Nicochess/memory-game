@@ -48,11 +48,14 @@ function App() {
 
     if (cards.length > 0 && allMatch.length === cards.length) {
       setConfetti(true);
-      
-      setCards((prevCards) =>
-        prevCards.map((card) => {
-          return { ...card, matched: false };
-        })
+
+      setTimeout(
+        setCards((prevCards) =>
+          prevCards.map((card) => {
+            return { ...card, matched: false };
+          })
+        ),
+        2000
       );
     }
   };
