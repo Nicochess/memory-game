@@ -13,7 +13,7 @@ const Card = ({ card, handleChoice, flipped, disabled }) => {
         <img className="front" src={card.src} alt="front card" />
         <img
           className="back"
-          src="/img/cover.png"
+          src="./img/cover.png"
           onClick={handleClick}
           alt="back card"
         />
