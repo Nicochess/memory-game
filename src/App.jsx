@@ -45,7 +45,6 @@ function App() {
 
   const gameWon = () => {
     const allMatch = cards.filter((card) => card.matched === true);
-    console.log(allMatch.length, cards.length)
 
     if (cards.length > 0 && allMatch.length === cards.length) {
       setConfetti(true);
@@ -80,7 +79,7 @@ function App() {
       <button onClick={shuffleCards}>New Game</button>
 
       {confetti && (
-        <Confetti width={window.width} height={window.innerHeight} />
+        <Confetti width={window.innerWidth - 20} height={window.innerHeight} />
       )}
 
       <div className="card-grid">
