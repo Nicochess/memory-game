@@ -28,7 +28,7 @@ function App() {
     setMemorizing(true);
     setChoiceOne(null);
     setChoiceTwo(null);
-    setConfetti(false)
+    setConfetti(false);
     setCards(shuffledCards);
     setTimeout(() => setMemorizing(false), 3000);
   };
@@ -48,6 +48,12 @@ function App() {
 
     if (cards.length > 0 && allMatch.length === cards.length) {
       setConfetti(true);
+      
+      setCards((prevCards) =>
+        prevCards.map((card) => {
+          return { ...card, matched: false };
+        })
+      );
     }
   };
 
