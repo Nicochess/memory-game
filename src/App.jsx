@@ -48,15 +48,17 @@ function App() {
 
     if (cards.length > 0 && allMatch.length === cards.length) {
       setConfetti(true);
-      setTimeout(
-        () =>
-          setCards((prevCards) =>
-            prevCards.map((card) => {
-              return { ...card, matched: false };
-            })
-          ),
-        2000
-      );
+      setDisable(true);
+
+      const flipCardsBack = () => {
+        setCards((prevCards) =>
+          prevCards.map((card) => {
+            return { ...card, matched: false };
+          })
+        );
+      };
+
+      setTimeout(() => flipCardsBack(), 2000);
     }
   };
 
