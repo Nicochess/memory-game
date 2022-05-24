@@ -2,15 +2,9 @@ import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import "./App.css";
 import Card from "./components/Card";
+import images from "./data";
 
-const cardImages = [
-  { src: "./img/helmet-1.png", matched: false },
-  { src: "./img/potion-1.png", matched: false },
-  { src: "./img/ring-1.png", matched: false },
-  { src: "./img/scroll-1.png", matched: false },
-  { src: "./img/shield-1.png", matched: false },
-  { src: "./img/sword-1.png", matched: false },
-];
+const cardImages = images.map((image) => ({ ...image, matched: false }));
 
 function App() {
   const [cards, setCards] = useState([]);
