@@ -68,11 +68,9 @@ function App() {
       if (choiceOne.src === choiceTwo.src) {
         setCards((prevCards) =>
           prevCards.map((card) => {
-            if (card.src === choiceOne.src) {
-              return { ...card, matched: true };
-            } else {
-              return card;
-            }
+            return card.src === choiceOne.src
+              ? { ...card, matched: true }
+              : card;
           })
         );
         resetTurn();
