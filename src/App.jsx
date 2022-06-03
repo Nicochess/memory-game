@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import "./App.css";
@@ -22,6 +23,7 @@ function App() {
     setMemorizing(true);
     setChoiceOne(null);
     setChoiceTwo(null);
+    setDisable(false);
     setConfetti(false);
     setCards(shuffledCards);
     setTimeout(() => setMemorizing(false), 3000);
